@@ -44,39 +44,46 @@ Feedback is provided in terms of heuristic function
 
 import random
 import string
+
 def generate_random_solution(answer):
-    l=len(answer)
+    l = len(answer)
     return [random.choice(string.printable) for _ in range(l)]
-def evaluate(solution,answer):
-    print(solution)
-    target=list(answer)
-    diff=0
+
+def evaluate(solution, answer):
+    print("Solution:", "".join(solution))
+    target = list(answer)
+    diff = 0
     for i in range(len(target)):
-        s=solution[i]
-        t=target[i]
-        #to calculate the "difference" between two strings, character by character.
-        #ord(s) - ord(t) calculates the difference between the ASCII values of the characters s and t.
-         #abs() takes the absolute value of this difference to ensure that it is non-negative. This is important because the difference could be negative if s is less than t in terms of ASCII value.
-         #The absolute value ensures that the difference is always positive or zero.
-        diff += abs(ord(s) - ord(t))    return diff
+        s = solution[i]
+        t = target[i]
+        diff += abs(ord(s) - ord(t))
+    return diff
+
 def mutate_solution(solution):
-    ind=random.randint(0,len(solution)-1)
-    solution[ind]=random.choice(string.printable)
+    ind = random.randint(0, len(solution) - 1)
+    solution[ind] = random.choice(string.printable)
     return solution
+
 def SimpleHillClimbing():
-    answer="Artificial Intelligence"
-    best=generate_random_solution(answer)
-    best_score=evaluate(best,answer)
+    answer = "Artificial Intelligence"
+    best = generate_random_solution(answer)
+    best_score = evaluate(best, answer)
+
     while True:
-       print("Score:", best_score, " Solution: ", "".join(best))  
-       if best_score == 0:
-           break
-       new_solution = mutate_solution(list(best))
-       score = evaluate(new_solution, answer)
-       if score < best_score:
-           best = new_solution
-           best_score = score
+        print("Score:", best_score, "Solution:", "".join(best))
+
+        if best_score == 0:
+            break
+
+        new_solution = mutate_solution(list(best))
+        score = evaluate(new_solution, answer)
+
+        if score < best_score:
+            best = new_solution
+            best_score = score
+
 SimpleHillClimbing()
+
 ~~~
 
 <hr>
@@ -100,6 +107,12 @@ Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 1  Solution :  Artificial Intelligencf<br>
 Score: 0  Solution :  Artificial Intelligence<br>
+
+
+
+
+
+<img width="1476" height="735" alt="image" src="https://github.com/user-attachments/assets/ba31aa13-8e21-47b8-a73a-9d2bdbd57a4d" />
 
 
 ## Result:
